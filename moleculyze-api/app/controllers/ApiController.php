@@ -58,6 +58,7 @@ class ApiController extends BaseController {
 				$messages = $validator->messages();
 				return Response::json(array('status'=>'400','messages'=>$messages));
 			} else {
+				$experiment->fill(Input::all());
 				$experiment->save();
 				$e = (100)*$experiment->starch_percentage + $experiment->enzyme1_temp + $experiment->enzyme2_temp;
 				$experiment->energy_cost = $e;
@@ -75,7 +76,7 @@ class ApiController extends BaseController {
 	public function getExperimentResults($id)
 	{
 		if($experiment = Experiment::find($id)){
-			if($experiment->score != null){
+			if($experiment->energy_cost != null){
 				$result = [
 					'yield_amount' => $experiment->yield_amount,
 					'co2_amount' => $experiment->co2_amount,

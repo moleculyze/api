@@ -5,7 +5,6 @@ class Experiment extends Eloquent {
 	protected $table = 'experiment';
 
 	protected $fillable = [
-		'id',
 		'fiber_percentage',
 		'starch_percentage',
 		'enzyme1_temp',

@@ -49,6 +49,12 @@ Log::useFiles(storage_path().'/logs/laravel.log');
 App::error(function(Exception $exception, $code)
 {
 	Log::error($exception);
+	return Response::json(array('status'=>'500','messages'=>array($exception->getMessage())));
+});
+
+App::missing(function($exception)
+{
+	return Response::json(array('status'=>'404','messages'=>array('method not found')));
 });
 
 /*
