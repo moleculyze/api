@@ -14,7 +14,10 @@
 Route::get('/', 'HomeController@showWelcome');
 
 Route::group(array(
-		'prefix' => 'api-v1'
+		'prefix' => 'experiment'
 	), function(){
 		Route::get('/', 'ApiController@base');
+		Route::get('/start', 'ApiController@startExperiment');
+		Route::post('/run/{id}', 'ApiController@runExperiment');
+		Route::get('/results/{id}', 'ApiController@getExperimentResults');
 });
