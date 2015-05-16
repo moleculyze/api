@@ -17,6 +17,7 @@ Route::group(array(
 		'prefix' => 'experiment'
 	), function(){
 		Route::get('/', 'ApiController@base');
+		Route::get('/config', 'ApiController@config');
 		Route::get('/start', 'ApiController@startExperiment');
 		Route::post('/run/{id}', 'ApiController@runExperiment');
 		Route::get('/results/{id}', 'ApiController@getExperimentResults');
