@@ -55,9 +55,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'moleculyze',
-			'username'  => 'moleculyze',
-			'password'  => '$34@th8ce',
+			'database'  => 'janamarg_moleculyze',
+			'username'  => 'janamarg_hack',
+			'password'  => '^zN1NblfOPeQ',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
