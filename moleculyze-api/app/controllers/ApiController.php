@@ -25,7 +25,7 @@ class ApiController extends BaseController {
 				'yeast_rate' => 0
 			]
 		);
-		$result = array('status'=>'200','experiment'=>$experiment);
+		$result = array('status'=>'200','result'=>$experiment);
 		return Response::json($result);
 	}
 
@@ -46,10 +46,19 @@ class ApiController extends BaseController {
 
 	public function getExperimentResults($id)
 	{
-		if(Experiment::find($id)){
-			//
+		if($experiment = Experiment::find($id)){
+			if($experiment->score != null){
+				$result = [
+					'yield_amount' => $experiment->yield_amount,
+					'co2_amount' => $experiment->co2_amount,
+					'energy_cost' => $experiment->energy_cost,
+					'score' => $experiment->score
+				];
+				return Response::json(array('status'=>'200','result'=>$result));
+			}
+			return Response::json(array('status'=>'400','messages'=>array('experiment '.$id.' has not been run')));
 		} else {
-			return Response::json(array('status'=>'404','message'=>'experiment '.$id.' not found'));
+			return Response::json(array('status'=>'404','messages'=>array('experiment '.$id.' not found')));
 		}
 	}
 
