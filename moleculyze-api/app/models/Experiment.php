@@ -66,8 +66,8 @@ class Experiment extends Eloquent {
 		'enzyme3_rate' => 'required|numeric|min:0|max:100',
 		'enzyme4_temp' => 'required|numeric|min:50|max:100',
 		'enzyme4_rate' => 'required|numeric|min:0|max:100',
-		'yeast_temp' => 'required|numeric|min:50|max:100',
-		'yeast_rate' => 'required|numeric|min:0|max:100'
+		'yeast_temp' => 'numeric|min:50|max:100',
+		'yeast_rate' => 'numeric|min:0|max:100'
 	];
 
 }

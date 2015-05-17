@@ -30,6 +30,8 @@ class ApiController extends BaseController {
 			} else {
 				$experiment->fill(Input::all());
 				$experiment->starch_percentage = 100 - $experiment->fiber_percentage;
+				$experiment->yeast_temp = $experiment->enzyme2_temp;
+				$experiment->yeast_rate = $experiment->enzyme2_rate;
 				$experiment->save();
 				$e = $experiment->starch_percentage + $experiment->enzyme1_temp + $experiment->enzyme2_temp;
 				$experiment->energy_cost = $e;
