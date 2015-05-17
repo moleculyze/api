@@ -17,7 +17,7 @@ class ApiController extends BaseController {
 	{
 		$experiment = Experiment::create(Experiment::$defaults);
 		$result = array('status'=>'200','result'=>$experiment);
-		return Response::json($result);
+		return Response::json($result)->setCallback(Input::get('callback'));
 	}
 
 	public function runExperiment($id)
