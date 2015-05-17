@@ -25,7 +25,7 @@ class Experiment extends Eloquent {
 
 	public static $config = [
 		'percentage_low' => 0,
-		'percentage_high' => 1,
+		'percentage_high' => 100,
 		'enzyme1_temp_low' => 50,
 		'enzyme1_temp_high' => 200,
 		'enzyme2_temp_low' => 50,
@@ -41,8 +41,8 @@ class Experiment extends Eloquent {
 	];
 
 	public static $defaults = [
-		'fiber_percentage' => 0,
-		'starch_percentage' => 0,
+		'fiber_percentage' => 50,
+		'starch_percentage' => 50,
 		'enzyme1_temp' => 50,
 		'enzyme1_rate' => 0,
 		'enzyme2_temp' => 50,
@@ -56,8 +56,8 @@ class Experiment extends Eloquent {
 	];
 
 	public static $rules = [
-		'fiber_percentage' => 'required|numeric|min:0|max:1',
-		'starch_percentage' => 'required|numeric|min:0|max:1',
+		'fiber_percentage' => 'required|numeric|min:0|max:100',
+		'starch_percentage' => 'numeric|min:0|max:100',
 		'enzyme1_temp' => 'required|numeric|min:50|max:200',
 		'enzyme1_rate' => 'required|numeric|min:0|max:100',
 		'enzyme2_temp' => 'required|numeric|min:50|max:100',

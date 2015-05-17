@@ -28,15 +28,13 @@ class ApiController extends BaseController {
 				$messages = $validator->messages();
 				return Response::json(array('status'=>400,'messages'=>$messages))->setCallback(Input::get('callback'));
 			} else {
-				if(Input::get('starch_percentage') + Input::get('fiber_percentage') != 1){
-					return Response::json(array('status'=>400,'messages'=>array('starch and fiber percentages should equal 1')));
-				}
 				$experiment->fill(Input::all());
+				$experiment->starch_percentage = 100 - $experiment->fiber_percentage;
 				$experiment->save();
-				$e = (100)*$experiment->starch_percentage + $experiment->enzyme1_temp + $experiment->enzyme2_temp;
+				$e = $experiment->starch_percentage + $experiment->enzyme1_temp + $experiment->enzyme2_temp;
 				$experiment->energy_cost = $e;
 				$experiment->save();
-				$y = (100)*$experiment->starch_percentage + (80)*$experiment->fiber_percentage + $experiment->enzyme1_rate + $experiment->enzyme2_rate + $experiment->enzyme3_rate;
+				$y = $experiment->starch_percentage + (.8)*$experiment->fiber_percentage + $experiment->enzyme1_rate + $experiment->enzyme2_rate + $experiment->enzyme3_rate;
 				$experiment->yield_amount = $y;
 				$experiment->save();
 				return Response::json(array('status'=>200,'location'=>'/experiment/results/'.$experiment->id))->setCallback(Input::get('callback'));
