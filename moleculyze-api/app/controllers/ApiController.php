@@ -9,43 +9,13 @@ class ApiController extends BaseController {
 
 	public function config()
 	{
-		$config = [
-			'percentage_low' => 0,
-			'percentage_high' => 100,
-			'enzyme1_temp_low' => 50,
-			'enzyme1_temp_high' => 200,
-			'enzyme2_temp_low' => 50,
-			'enzyme2_temp_high' => 100,
-			'enzyme3_temp_low' => 50,
-			'enzyme3_temp_high' => 200,
-			'enzyme4_temp_low' => 50,
-			'enzyme4_temp_high' => 100,
-			'yeast_temp_low' => 50,
-			'yeast_temp_high' => 100,
-			'rate_low' => 0,
-			'rate_high' => 100
-		];
+		$config = Experiment::$config;
 		return Response::json(array('status'=>'200','config'=>$config));
 	}
 
 	public function startExperiment()
 	{
-		$experiment = Experiment::create(
-			[
-				'fiber_percentage' => 0,
-				'starch_percentage' => 0,
-				'enzyme1_temp' => 50,
-				'enzyme1_rate' => 0,
-				'enzyme2_temp' => 50,
-				'enzyme2_rate' => 0,
-				'enzyme3_temp' => 50,
-				'enzyme3_rate' => 0,
-				'enzyme4_temp' => 50,
-				'enzyme4_rate' => 0,
-				'yeast_temp' => 50,
-				'yeast_rate' => 0
-			]
-		);
+		$experiment = Experiment::create(Experiment::$defaults);
 		$result = array('status'=>'200','result'=>$experiment);
 		return Response::json($result);
 	}
@@ -58,6 +28,9 @@ class ApiController extends BaseController {
 				$messages = $validator->messages();
 				return Response::json(array('status'=>'400','messages'=>$messages));
 			} else {
+				if(Input::get('starch_percentage') + Input::get('fiber_percentage') != 1){
+					return Response::json(array('status'=>'400','messages'=>array('starch and fiber percentages should equal 1')));
+				}
 				$experiment->fill(Input::all());
 				$experiment->save();
 				$e = (100)*$experiment->starch_percentage + $experiment->enzyme1_temp + $experiment->enzyme2_temp;
