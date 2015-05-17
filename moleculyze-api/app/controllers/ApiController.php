@@ -26,7 +26,7 @@ class ApiController extends BaseController {
 			$validator = Validator::make(Input::all(), Experiment::$rules);
 			if($validator->fails()){
 				$messages = $validator->messages();
-				return Response::json(array('status'=>400,'messages'=>$messages))->setCallback(Input::get('callback'));
+				return Response::json(array('status'=>400,'messages'=>$messages));
 			} else {
 				$experiment->fill(Input::all());
 				$experiment->starch_percentage = 100 - $experiment->fiber_percentage;
@@ -39,10 +39,10 @@ class ApiController extends BaseController {
 				$y = $experiment->starch_percentage + (.8)*$experiment->fiber_percentage + $experiment->enzyme1_rate + $experiment->enzyme2_rate + $experiment->enzyme3_rate;
 				$experiment->yield_amount = $y;
 				$experiment->save();
-				return Response::json(array('status'=>200,'location'=>'/experiment/results/'.$experiment->id))->setCallback(Input::get('callback'));
+				return Response::json(array('status'=>200,'location'=>'/experiment/results/'.$experiment->id));
 			}
 		} else {
-			return Response::json(array('status'=>404,'messages'=>array('experiment '.$id.' not found')))->setCallback(Input::get('callback'));
+			return Response::json(array('status'=>404,'messages'=>array('experiment '.$id.' not found')));
 		}
 	}
 
